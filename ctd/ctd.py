@@ -101,8 +101,8 @@ def from_edf(fname, compression=None, below_water=False, lon=None,
                     elif hemisphere == 'N':
                         lat = lat[0] + lat[1] / 60.
                 except (IndexError, ValueError) as e:
-                    msg = 'Ill formed or not present latitude in the header. '
-                    msg += 'Try specifying one with the keyword `lat=`.'
+                    msg = ('Ill formed or not present latitude in the header. '
+                           'Try specifying one with the keyword `lat=`.')
                     raise ValueError('%s\n%s' % (msg, e))
         elif line.startswith('Longitude'):
             if not lon:
@@ -115,8 +115,8 @@ def from_edf(fname, compression=None, below_water=False, lon=None,
                     elif hemisphere == 'E':
                         lon = lon[0] + lon[1] / 60.
                 except (IndexError, ValueError) as e:
-                    msg = 'Ill formed or not present Longitude in the header.'
-                    msg += 'Try specifying one with the keyword `lon=`.'
+                    msg = ('Ill formed or not present Longitude in the header.'
+                           'Try specifying one with the keyword `lon=`.')
                     raise ValueError('%s\n%s' % (msg, e))
         else:
             header.append(line)
@@ -242,6 +242,7 @@ def from_fsi(fname, compression=None, skiprows=9, below_water=False,
     >>> downcast, upcast = cast.split()
     >>> fig, ax = downcast['TEMP'].plot()
     >>> ax.grid(True)
+
     """
     f = read_file(fname, compression=compression)
     cast = read_table(f, header='infer', index_col=None, skiprows=skiprows,
